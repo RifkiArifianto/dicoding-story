@@ -1,5 +1,5 @@
 import UrlParser from "./utils/url-parser.js";
-import routes from "../routes/routes.js";
+import routes from "../scripts/routes/routes.js";
 import Api from "./data/api.js";
 import Config from "./utils/config.js";
 
