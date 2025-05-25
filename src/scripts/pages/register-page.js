@@ -50,7 +50,7 @@ const RegisterPage = {
       }
 
       const response = await Api.register({ name, email, password });
-      console.log("API Response:", response); // Tambahkan log untuk debugging
+      console.log("API Response:", response);
       if (!response.error) {
         alert("Registration successful! Please login to continue.");
         window.location.hash = "#login";

@@ -1,15 +1,12 @@
 const UrlParser = {
   parseActiveUrlWithCombiner() {
-    const url = window.location.hash.slice(1); // Hapus toLowerCase
+    const url = window.location.hash.slice(1).toLowerCase();
     const splitedUrl = url.split("/");
     return {
-      resource: splitedUrl[0] || "",
-      id: splitedUrl[1] || "",
+      resource: splitedUrl[1] || null,
+      id: splitedUrl[2] || null,
+      verb: splitedUrl[3] || null,
     };
-  },
-
-  parseActiveUrlWithoutCombiner() {
-    return window.location.hash.slice(1); // Hapus toLowerCase
   },
 };
 

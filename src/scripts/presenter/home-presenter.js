@@ -1,58 +1,47 @@
-import Api from "../data/api.js";
+// src/scripts/presenter/home-presenter.js
+import Api from "../data/api.js"; // Perbaiki path impor
 import Idb from "../idb.js";
 
 class HomePresenter {
   constructor(view) {
     this.view = view;
+    this.api = Api;
   }
 
   async loadStories(token) {
+    this.view.showLoading();
     try {
-      if (!token) {
-        this.view.showError("No token found. Please log in again.");
-        return;
+      const response = await this.api.getAllStories(token, {
+        page: 1,
+        size: 10,
+        location: 0,
+      });
+      if (response.error) {
+        this.view.showError(response.message);
+      } else if (response.listStory.length === 0) {
+        this.view.showEmptyMessage();
+      } else {
+        await Idb.saveStories(response.listStory); // Simpan ke IndexedDB
+        this.view.showStories(response.listStory);
       }
-
-      this.view.showLoading();
-
-      try {
-        const response = await Api.getAllStories(token, { location: 1 });
-        if (response.error) {
-          throw new Error(response.message);
-        }
-
-        const stories = response.listStory || [];
-        if (stories.length === 0) {
-          this.view.showEmptyMessage();
-          return;
-        }
-
-        await Idb.saveStories(stories);
-        this.view.showStories(stories);
-      } catch (error) {
-        const cachedStories = await Idb.getAllStories();
-        if (cachedStories.length > 0) {
-          this.view.showStories(cachedStories);
-          this.view.showOfflineMessage("Showing cached stories (offline mode)");
-        } else {
-          this.view.showError(
-            error.message ||
-              "Failed to load stories. Please check your connection or log in again."
-          );
-        }
+    } catch (error) {
+      const cachedStories = await Idb.getAllStories(); // Ambil dari cache
+      if (cachedStories.length > 0) {
+        this.view.showStories(cachedStories);
+      } else {
+        this.view.showError("Failed to load stories. Check your connection.");
+        this.view.showOfflineMessage(
+          "You are offline. Showing cached stories if available."
+        );
       }
-    } finally {
-      this.view.hideLoading();
     }
+    this.view.hideLoading();
   }
 
   async clearStories() {
-    try {
-      await Idb.deleteAllStories();
-      this.view.showEmptyMessage();
-    } catch (error) {
-      this.view.showError("Failed to clear stories from cache.");
-    }
+    await Idb.deleteAllStories();
+    console.log("Stories cache cleared");
+    this.view.showEmptyMessage();
   }
 }
 

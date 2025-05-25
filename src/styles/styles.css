@@ -1,4 +1,3 @@
-/* Reset and Base Styles */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -8,7 +7,6 @@ body {
   line-height: 1.6;
 }
 
-/* Header and Navigation */
 header {
   background-color: #333;
   color: white;
@@ -47,7 +45,6 @@ nav ul li a.nav-link.active {
   color: #fff;
 }
 
-/* Main Content */
 main {
   padding: 2rem;
   max-width: 1200px;
@@ -61,7 +58,6 @@ main h1 {
   color: #333;
 }
 
-/* Offline Message and Loading */
 #offline-message {
   text-align: center;
   color: orange;
@@ -78,7 +74,6 @@ main h1 {
   display: none;
 }
 
-/* Buttons */
 button {
   padding: 0.5rem 1rem;
   background-color: #333;
@@ -95,8 +90,40 @@ button:hover {
   background-color: #555;
 }
 
-/* Stories Section */
-#stories {
+#install-button {
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+#install-button:hover {
+  background-color: #218838;
+}
+
+#subscribe-notification {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+#subscribe-notification:hover {
+  background-color: #0056b3;
+}
+
+#stories,
+#favorite-stories {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
@@ -159,7 +186,29 @@ article a:hover {
   background-color: #555;
 }
 
-/* Map */
+.add-favorite,
+.remove-favorite {
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.add-favorite:hover,
+.remove-favorite:hover {
+  background-color: #218838;
+}
+
+.add-favorite:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
 #map {
   margin-top: 20px;
   height: 400px;
@@ -167,7 +216,41 @@ article a:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Skip Link (Aksesibilitas) */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+form input,
+form textarea {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+form input[type="file"] {
+  padding: 0;
+}
+
 .skip-link {
   position: absolute;
   top: -40px;
@@ -175,14 +258,25 @@ article a:hover {
   background: #000;
   color: #fff;
   padding: 8px;
-  z-index: 100;
+  z-index: 10001; /* Diperbarui untuk lebih tinggi dari header */
 }
 
 .skip-link:focus {
   top: 0;
 }
 
-/* Responsive Design */
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+footer p {
+  font-size: 0.9rem;
+}
+
 @media (max-width: 768px) {
   nav ul {
     flex-direction: column;

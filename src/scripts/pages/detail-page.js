@@ -101,7 +101,6 @@ const DetailPage = {
       }
     });
 
-    // Pindahkan logika "Skip to Content" ke app.js, tetapi jika diperlukan spesifik, bisa dipertahankan
     const skipLink = document.querySelector(".skip-link");
     if (skipLink) {
       skipLink.addEventListener("click", (event) => {
